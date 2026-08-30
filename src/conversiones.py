@@ -1,64 +1,29 @@
-def decimal_a_binario(numero):
-    """Convierte un número decimal a binario."""
-    if numero == 0:
-        return "0"
-
-    resultado = ""
-
-    while numero > 0:
-        residuo = numero % 2
-        resultado = str(residuo) + resultado
-        numero = numero // 2
-
-    return resultado
+"""
+Módulo de lógica pura para conversiones numéricas entre distintas bases.
+Diseñado sin dependencias de UI para garantizar máxima portabilidad.
+"""
 
 
-def binario_a_decimal(numero):
-    """Convierte un número binario a decimal."""
-    decimal = 0
-    potencia = 0
-
-    for digito in reversed(numero):
-        decimal += int(digito) * (2 ** potencia)
-        potencia += 1
-
-    return str(decimal)
+def decimal_a_binario(valor: int) -> str:
+    """Convierte un entero decimal no negativo a representación binaria."""
+    if valor < 0:
+        raise ValueError("El número debe ser mayor o igual a cero.")
+    return bin(valor)[2:]
 
 
-def decimal_a_octal(numero):
-    """Convierte un número decimal a octal."""
-    if numero == 0:
-        return "0"
-
-    resultado = ""
-
-    while numero > 0:
-        residuo = numero % 8
-        resultado = str(residuo) + resultado
-        numero = numero // 8
-
-    return resultado
+def binario_a_decimal(valor: str) -> int:
+    """Convierte una cadena de caracteres binaria a entero decimal."""
+    return int(valor, 2)
 
 
-def octal_a_binario(numero):
-    """Convierte un número octal a binario."""
-    tabla = {
-        "0": "000",
-        "1": "001",
-        "2": "010",
-        "3": "011",
-        "4": "100",
-        "5": "101",
-        "6": "110",
-        "7": "111"
-    }
+def decimal_a_octal(valor: int) -> str:
+    """Convierte un entero decimal no negativo a representación octal."""
+    if valor < 0:
+        raise ValueError("El número debe ser mayor o igual a cero.")
+    return oct(valor)[2:]
 
-    resultado = ""
 
-    for digito in numero:
-        resultado += tabla[digito]
-
-    # Eliminar ceros innecesarios al comienzo
-    resultado = resultado.lstrip("0")
-
-    return resultado if resultado else "0"
+def octal_a_binario(valor: str) -> str:
+    """Convierte una cadena octal a su representación binaria equivalente."""
+    decimal = int(valor, 8)
+    return bin(decimal)[2:]
